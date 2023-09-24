@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div ~ p {
+  background-color: rgb(220, 69, 14);
+}
+</style>
+</head>
+<body>
+
+<h2>Descendant Selector</h2>
+
+<p>The descendant selector matches all elements that are descendants of a specified element.</p>
+
+<div>
+  <p>Paragraph 1 in the div.</p>
+  <p>Paragraph <span>2</span> in the div.</p>
+  <div>
+    <h1>이것은 제목</h1>
+    <p>문단태그</p>
+  </div>
+  <p>문단태그</p>
+  <section>
+  	<p>Paragraph <span>3</span> in the div.</p>    
+  </section>
+</div>
+<p>Paragraph <span>2</span> in the div.</p>
+
+<p>Paragraph 4. Not in a div.</p>
+<p>Paragraph 5. Not in a div.</p>
+
+</body>
+</html>
+
+
