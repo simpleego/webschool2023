@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간단한 사칙연산 계산기</title>
+</head>
+<body>
+    <form>
+        <label for="num1">숫자1 :</label> 
+        <input type="text" id="num1" name="num1"><br><br>
+        <label for="num2">숫자2 :</label> 
+        <input type="text" id="num2" name="num2"><br><br>
+        <input type="button" onclick="add()"  value="더하기"> 
+        <input type="button" onclick="sub()"  value="빼기"> 
+        <input type="button" onclick="mul()"  value="곱하기"> 
+        <input type="button" onclick="div()"  value="나누기"><br><br>
+        <label for="result">결과 :</label> 
+        <input type="text" id="result" name="result" value="000">
+    </form>
+</body>
+<script>
+    function getNumber1(){
+        return document.getElementById("num1").value;
+    }
+
+    function getNumber2(){
+        return document.getElementById("num2").value;
+    }
+
+    function add(){
+        // 두개의 숫자 가져오기
+        
+        const num1 = getNumber1(); // document.getElementById("num1").value;
+        const num2 = getNumber2(); //document.getElementById("num2").value; 
+        let result=null;       
+        console.log(typeof num1);
+        console.log(typeof num2);
+
+        // 두개의 값을 더하기
+        result = parseInt(num1) + parseInt(num2);
+        console.log(result)
+        // 결과를 출력
+        document.getElementById("result").value = result;
+    }
+    function sub(){
+        // 두개의 숫자 가져오기
+        const num1 = getNumber1();//document.getElementById("num1").value;
+        const num2 = getNumber2();//document.getElementById("num2").value; 
+        let result=null;       
+        console.log(typeof num1);
+        console.log(typeof num2);
+
+        // 두개의 값을 더하기
+        result = parseInt(num1) - parseInt(num2);
+        console.log(result)
+        // 결과를 출력
+        document.getElementById("result").value = result;
+    }
+    function mul(){
+        // 두개의 숫자 가져오기
+        const num1 = getNumber1();//document.getElementById("num1").value;
+        const num2 = getNumber2();//document.getElementById("num2").value; 
+        let result=null;       
+        console.log(typeof num1);
+        console.log(typeof num2);
+
+        // 두개의 값을 더하기
+        result = parseInt(num1) * parseInt(num2);
+        console.log(result)
+        // 결과를 출력
+        document.getElementById("result").value = result;
+    }
+    function div(){
+        // 두개의 숫자 가져오기
+        const num1 = getNumber1();//document.getElementById("num1").value;
+        const num2 = getNumber2();//document.getElementById("num2").value; 
+        let result=null;       
+        console.log(typeof num1);
+        console.log(typeof num2);
+
+        // 두개의 값을 더하기
+        if(parseInt(num2) != 0){
+            result = parseInt(num1) / parseInt(num2);
+        }else {
+            result ="0으로 나눌 수 없습니다."
+        }
+        console.log(result)
+        // 결과를 출력
+        document.getElementById("result").value = result;
+    }
+</script>
+</html>

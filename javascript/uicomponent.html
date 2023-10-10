@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Component</title>
+</head>
+<body>
+    <!-- 알림창(alert), 사용자 입력창(prompt), 확인창(confirm) -->
+    <script>
+        // alert
+        //alert("알림창입니다."+"반드시 확인 버튼을 클릭해야 진행이 됩니다.")
+
+        // prompt:  사용자 입력을 받는다.
+        const name = prompt("이름 입력");
+        console.log(name)
+
+        let jumsu = prompt("점수 입력", 100);
+        jumsu = parseInt(jumsu) + 10;
+        console.log(jumsu)
+
+        let yes_no = confirm("저장할까요?")
+        console.log(yes_no)
+    </script>
+
+</body>
+</html>

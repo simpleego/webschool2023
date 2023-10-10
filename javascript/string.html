@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 문자형
+        // "xxx", 'xxxx', `   `
+        let name = '홍길동\'"2';
+        let name2 = "이순신\"2";
+        let name3 = `내이름은 ${name}입니다`;
+        let name4 = `내이름은 ${"100"+200}입니다`;
+        console.log(name);
+        console.log(name2);
+        console.log(name3);
+        console.log(name4);
+
+        // 논리형
+        let num = "4" == "1";
+        console.log(num);
+        
+        // null : 현재시점 값이 없음
+        let age = null;
+        console.log(age);
+        age=20;
+        console.log(age);
+
+        // undefined
+        let address=100;
+        console.log(address);
+        address = undefined;
+        console.log(typeof address);
+    </script>
+</body>
+</html>
