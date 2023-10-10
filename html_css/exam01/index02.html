@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #wrapper {
+            width: 600px;
+            margin: 20px auto;
+            background-color: aquamarine;
+            box-sizing: border-box;
+        }
+
+        header {
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0px auto;
+        }
+
+        section {
+            box-sizing: border-box;
+            width: 80%;
+            padding: 0;
+            margin: 0px auto;
+            text-align: center;
+            background-color: white;
+            border-left: 5px solid #ccc;
+            border-right: 5px solid #ccc;
+            border-bottom: 5px solid #ccc;
+        }
+
+        #section01{
+            position: relative;
+            margin-top: 4em;
+            padding: 20px;
+            background-color: white;
+            border: none;
+            z-index: 1;
+        }
+        
+        #shadow_box {
+            position: absolute;
+            width: 100%;
+            height: 90px;
+            top: 5px;
+            left: 5px;
+            background-color: #565656;
+            box-sizing: border-box;
+            z-index: 0;
+        }
+
+        #front_box {
+            position: absolute;
+            width: 100%;
+            height: 90px;
+            top: 0px;
+            left: 0px;
+            background-color: white;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+        #content_box {
+            position: absolute;
+            top: 10px;
+            left: 25px;
+            font-size: 1.5em;
+            text-align: justify;
+            z-index: 2;
+        }
+        #title05  {            
+            letter-spacing: 0.6ch;
+        }
+        #title06  {            
+            letter-spacing: 0.4ch;
+        }
+
+        #section02 {            
+            background-color: white;
+        }
+
+        h1 {
+            font-size: 1em; 
+            padding-left: 66px;
+            padding-top: 32px;        
+        }
+
+        h2 {
+            width: 80%;
+            padding: 10px;
+            margin: 0px auto;
+            margin-top: 5px;
+            top: 5px;
+            background-color: rgb(0, 255, 242);
+            border-radius: 10px 10px 0px 0px;
+            border: 5px solid rgb(7, 223, 195);
+            box-sizing: border-box;
+        }
+
+        .circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: yellow;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        #title0{
+            text-align: left; 
+            margin-left: 45px; 
+            font-weight: bold;
+            color: #616060;
+        }
+
+        #title01 {
+            position: relative;
+            text-align: left;
+        }
+
+        #box01{
+            padding-top: 3em;
+            width: 400px;
+            margin: 5px auto;
+            z-index: 2;
+        }
+
+        #title02 {
+            font-size: 4em;
+            line-height: 1.1;
+        }
+
+        #title03 {
+            width: 400px;
+            margin-top: 1em;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.7em;
+            background-color: rgb(240, 204, 106);
+            padding: 5px;
+            text-align: center;
+            border-radius: 20px;
+            border: 3px solid rgb(234, 172, 3);
+        }
+
+        #title04{
+            margin: 2em;
+        }
+
+        #circles {
+            position: absolute;
+            top: 8px;
+            right: 5px;
+        }       
+
+        #img01{
+            margin: 0px auto;
+            position: static;
+            margin-top: 8em;
+            width: 300px;
+            height: 400px;
+        }
+
+        footer {
+            padding: 10px;
+            bottom: 10px;
+            font-size: 0.7em;
+            line-height: 1.5;
+            background-color: rgb(2, 206, 196);            
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        a:link{
+            color: #333;
+        }
+        a:visited{
+            color: #762626;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h1><a href="http://www.pcu.ac.kr/cec">http://www.pcu.ac.kr/cec</a></h1>
+            <h2 id="title01">2023 2학기
+                <div id="circles">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+            </h2>
+        </header>
+        <section>        
+            
+            <div id="box01">
+                <p id="title0">Life Education</p>
+                <p id="title02">배재대학교<br>
+                평생교육원
+                </p>
+            </div>
+
+            <h3 id="title03">일반교육과정 수강생 모집</h3>
+            <p id="title04">⊙2023학년 2학기 ⊙교육과정 수강생 모집</p>
+        </section>
+        
+        <section id="section01">
+            <div id="shadow_box"></div>
+            <div id="front_box"></div>            
+            <div id="content_box">
+                <p id="title05">2023.9.1금~2023.12.21목</p>
+                <p id="title06">배재대학교 평생교육원 홈페이지</p>
+            </div>
+        </section>
+
+        <div id="img01">
+            <img  src="img/img01.png" width="300px">
+        </div>
+
+        <footer>
+            <article>
+                <address>35345 대전광역시 서구 배재로 155-40(도마동) 배재대학교 국제교류관 5층 평생교육원</address>
+                <p>TEL. 042-520-5180(일반교육과정)/042-520-5397(유아숲지도사양성과정) FAX. 070-4850-8406</p>
+                <p>Copyright © Pai Chai University. All Right Reserved.</p>
+            </article>
+        </footer>
+
+    </div>
+</body>
+</html>
