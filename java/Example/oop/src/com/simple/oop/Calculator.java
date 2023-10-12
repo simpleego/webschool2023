@@ -23,7 +23,7 @@ public class Calculator {
         result = num1 + num2;
         return result;
     }
-    public double sub(){
+        public double sub(){
         result = num1 - num2;
         return result;
     }
