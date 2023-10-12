@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조건부 연산자</title>
+</head>
+<body>
+    <script>
+        // 조건부 연산자 ?
+        let accessAllowed;
+        let age = prompt("나이입력 ",0);
+        // if(age > 20){
+        //     accessAllowed = true;
+        //     console.log('성인입니다. 입장가능')
+        // }else {
+        //     console.log('미성녀입니다. 입장불가능')
+        //     accessAllowed = false;
+        // }
+        accessAllowed = (age>20)?'성인':'미성년';
+        console.log(accessAllowed);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반복문</title>
+</head>
+<body>
+    <script>
+        /*let i=3;
+        while(i){
+            console.log(i);
+            i--;
+        }
+        console.log(i);*/
+    </script>
+    <script>
+        // 단을 사용자가 입력한 값으로 처리
+        let start_dan= 1; //prompt("원하는 구구단의 시작단을 입력 :",2);
+        let end_dan=9;    //prompt("원하는 구구단의 끝단을 입력 :",4);
+        
+        for(i=1; i<=9; i++){
+            for(j=2; j<=9; j++){
+                document.write(`<span>${j} x ${i} = ${i*j} </span>`);
+            }
+            document.write("<br>")
+        }
+        
+    </script>
+    
+</body>
+</html>

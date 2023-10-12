@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>간단한 사칙연산 계산기</title>
 </head>
+<style>
+    form {
+        width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 10px solid #ccc;
+    }
+</style>
 <body>
     <form>
         <label for="num1">숫자1 :</label> 
@@ -35,7 +43,7 @@
         num1 = document.getElementById("num1").value;
         num2 = document.getElementById("num2").value;
     }
-
+    
     function add(){
         // 두개의 숫자 가져오기   
         console.log(num1);

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>형변환</title>
+</head>
+<body>
+    <script>
+        let value=true;
+        console.log(value);
+        console.log(typeof value);
+
+        value = String(value);
+        console.log(value);
+        console.log(typeof value);
+
+        value = Boolean(value);
+        console.log(value);
+        console.log(typeof value);
+
+        let str = "123"
+        let num = parseInt(str) + 100;
+        console.log(num);
+
+        str = " 123 "
+        num = Number(str) + 100;
+        console.log(num);
+
+        console.log(Number("false") === NaN);
+        console.log('---------------')
+        console.log(Boolean(0));
+
+
+    </script>
+</body>
+</html>
