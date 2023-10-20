@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class WindowFrame extends JFrame {
     // GUI 멤버
@@ -48,9 +49,9 @@ public class WindowFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String num1_ = tf1.getText();
                 String num2_ = tf2.getText();
-                int sum = Integer.parseInt(num1_) -
+                int result = Integer.parseInt(num1_) -
                         Integer.parseInt(num2_);
-                tf3.setText(sum+""); //String.valueOf(sum));
+                tf3.setText(result+""); //String.valueOf(sum));
             }
         });
 
@@ -59,9 +60,9 @@ public class WindowFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String num1_ = tf1.getText();
                 String num2_ = tf2.getText();
-                int sum = Integer.parseInt(num1_) *
+                int result = Integer.parseInt(num1_) *
                         Integer.parseInt(num2_);
-                tf3.setText(sum+""); //String.valueOf(sum));
+                tf3.setText(result+""); //String.valueOf(sum));
             }
         });
 
@@ -70,14 +71,18 @@ public class WindowFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String num1_ = tf1.getText();
                 String num2_ = tf2.getText();
-                double sum = 0;
+                double result = 0;
                 if(Integer.parseInt(num2_) != 0){
-                    sum = Double.parseDouble(num1_) /
+                    result = Double.parseDouble(num1_) /
                           Double.parseDouble(num2_);
-                    tf3.setText(String.format("%.2f", sum)); //String.valueOf(sum));
+                    String result_ = String.format("%.2f", result);
+                    tf3.setText(result_); //String.valueOf(sum));
                     return;
                 }
-                tf3.setText(sum+"으로 나눌 수 없습니다 !!"); //String.valueOf(sum));
+                // 메시지 박스 띄우기
+                JOptionPane.showMessageDialog(null, "0으로 나눌 수 없습니다.");
+
+                tf3.setText(result+"으로 나눌 수 없습니다 !!"); //String.valueOf(sum));
 
             }
         });
