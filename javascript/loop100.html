@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 250px;
+            margin: 10px auto;
+        }
+
+        #container td,
+        #container th {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #container tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #container tr:hover {
+            background-color: #ddd;
+        }
+
+        #container th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #5e5f5f;
+            color: white;
+        }
+
+        #container td {
+            width: 100px;
+            padding: 5px 15px;
+            text-align: right;
+        }
+
+        div {
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 10px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table id="container">
+            <tr>
+                <th colspan="2">누적갑</th>
+                <th colspan="2">카운터</th>
+                <th>총합</th>
+            </tr>
+
+            <script>
+                // 1부터 100까지 반복하면서
+                // 합을 구하고 그 값이 100을 넘으면 종료한다.
+                let sum = 0;
+                let count = 0;
+                while (true) {
+                    document.write(`<tr>`);
+                    count++;
+                    document.write(`<td>${sum}<td>+</td><td>${count}</td>`);
+                    sum += count;
+                    document.write(`<td>=</td><td>${sum}</td>`);
+                    if (sum >= 100) break;
+                    document.write(`</tr>`);
+                }
+                document.write(`<tr>`);
+                    document.write(`<td style="text-align: center" colspan='5'>`);
+
+                    document.write(`벗어난 위치 : ${count}<br>`);
+                    document.write(`</td>`);
+                    
+                    document.write(`<tr>`);
+                    document.write(`<td style="text-align: center" colspan='5'>`);
+                    document.write(`누적한 값 : ${sum}`);
+                    document.write(`</td>`);
+                document.write(`</tr>`);
+            </script>
+        </table>
+    </div>
+</body>
+</html>

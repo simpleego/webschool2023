@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화살표 함수</title>
+</head>
+<body>
+    <script>
+        let age = prompt('나이를 입력 :', 18);
+
+        let welcome = (age < 18)?
+             (age)=>alert('안녕'+age):
+             ()=>alert("안녕하세요");
+           
+        welcome(12);
+
+        let sum = (a,b)=>{
+            let result = a+b;
+            return result;
+        };
+
+        alert(sum(1,2));
+    </script>
+</body>
+</html>

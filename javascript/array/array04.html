@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열기초</title>
+</head>
+<body>
+    <script>
+        // 배열(박스)에 객체를 저장할 수 있다.
+        const users = [
+            {id:1,name:'곰',address:'서울'},
+            {id:2,name:'사자',address:'대전'},
+            {id:3,name:'호랑이',address:'부산'},
+        ]
+        // int[] age = new int[5]
+        for (let i = 0; i < users.length; i++) {
+            element = users[i];
+            document.write(`
+                    ${element.id},
+                    ${element.name},
+                    ${element.address} </br>`
+                    );          
+        }
+
+    </script>
+</body>
+</html>

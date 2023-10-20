@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체</title>
+</head>
+<body>
+    <script>
+        //const user = new Object("홍길동");
+        const user = {
+            name:"홍길동",
+            age: 23
+        };
+
+        //let age = "age"
+        console.log(user.age);
+        console.log(user["age"]);
+
+        let key = prompt("사용자의 어떤 정보를 얻고 싶은가요?","name")
+        alert(user[key]);
+        
+        
+
+
+    </script>
+</body>
+</html>

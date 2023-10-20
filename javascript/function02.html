@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콜백함수</title>
+</head>
+<body>
+    <script>
+        function ask(question, yes, no){
+            if(confirm(question)) {
+                //yes()
+                showOk();
+            } else{
+                no()
+            }
+        }
+
+        ask("동의하십니까?",showOk,showCancel);
+        
+        alert("콜백을 기다릴 수 없어요!!");
+
+        function showOk(){
+            alert("동의하셨습니다.")
+        }
+
+        function showCancel(){
+            alert("취소하셨습니다.")
+        }
+
+        
+    </script>
+    
+</body>
+</html>

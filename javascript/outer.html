@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let userName = 'John';
+        let message = 'Hello, ' + userName;
+        
+        function showMessage() {           
+            alert(message);
+        }
+
+
+        function showMessage1() {
+            userName = "홍길동"
+        }
+
+        function showMessage2(from, text) {
+            text =  text || '' || 'Hello World';
+            alert( from + ": " + text );
+        }
+
+        function anotherFunction(){
+            return "안녕 친구야"
+        }
+
+        showMessage2("Ann"); // Ann: no text given
+        
+    </script>
+</body>
+</html>

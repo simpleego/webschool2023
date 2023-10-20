@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 기초</title>
+</head>
+<body>
+    <p onclick="hello()">눌러</p>
+    <button class="button">눌러</button>
+    <script>
+
+    const button = document.querySelector('.button');
+    button.addEventListener('click',onClickButton);
+
+    // button.addEventListener('click', 
+    // function() {
+    //     console.log("버튼을 클릭했네요");
+    // });
+
+    // button.addEventListener('click', 
+    // () => {
+    //     console.log("버튼을 클릭했네요");
+    // });
+
+    function hello(){
+        alert('안녕');
+    }
+
+    // function onClickButton(){
+    //     console.log("버튼을 클릭했네요")
+    // }
+
+    function onClickButton(event){
+        console.log(event.target)
+        console.log("버튼을 클릭했네요")
+    }
+    </script>
+</body>
+</html>

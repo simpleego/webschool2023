@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열기초</title>
+    <link rel="stylesheet" href="style05.css" />
+</head>
+<body>
+    <script>
+        const array = ['사과','바나나','귤','배','사과','귤']
+        const pos = array.indexOf('사과')
+        const pos1 = array.lastIndexOf('사과')
+        const find = array.includes('사과')
+        console.log(pos)
+        console.log(pos1)
+        console.log(find)
+
+        //--------------------------------
+        // 조건을 만족하는 배열 요소 가져오기
+        const result = array.find( 
+            (element) => element <= '배' );
+
+        const result1 = array.findIndex( 
+            (element) => element === '배' );
+        console.log('==>'+result);
+        console.log('==>'+result1);
+    </script>
+</body>
+</html>

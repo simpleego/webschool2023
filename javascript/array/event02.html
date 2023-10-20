@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 기초</title>
+</head>
+<body>
+    <p onclick="hello()">눌러</p>
+    <button class="button">눌러</button>
+    <script>
+    const option = {
+        once: false
+    };
+
+    const button = document.querySelector('.button');
+    button.addEventListener('click',onClickButton,option);
+
+    setTimeout( ()=>{
+        button.removeEventListener('click',onClickButton);
+    }, 3000);
+
+   function onClickButton(){
+    alert('버튼 클릭')
+   }
+    </script>
+</body>
+</html>
