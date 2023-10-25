@@ -36,6 +36,7 @@
         const $scissors = document.querySelector('#scissors');
         const $rock = document.querySelector('#rock');
         const $paper = document.querySelector('#paper');
+
         const IMG_URL = './rsp.png';
         $computer.style.background=`url(${IMG_URL})-464px 0` ;
         $computer.style.backgroundSize = 'auto 200px';
@@ -46,7 +47,8 @@
             paper: '-440px' // 보
         }
 
-        let computerChoice = 'paper';
+        let computerChoice = 'scissors';
+        let id=null;
 
         const changeComputerHand = ()=>{
             if(computerChoice === 'rock'){
@@ -63,6 +65,7 @@
         }
 
         let intervalId = setInterval(changeComputerHand, 50);
+
         //changeComputerHand();
 
         // 점수 테이블 
@@ -72,11 +75,46 @@
             paper: -1,
         }
 
-
+        let score = 0;
+        let message;
+        let clickable = true;
         // 사용자 함수
         const clickButton = (event) =>{
-            let name = event.target.textContent;
-            console.log(name);
+
+            if(clickable){
+
+                clickable = false;
+            
+                clearInterval(intervalId);
+
+                const myChoice = event.target.textContent === '바위'
+                ?'rock'
+                : event.target.textContent === '가위'
+                ? 'scissors'
+                : 'paper';
+
+                const myScore = scoreTable[myChoice];
+                const computerScore = scoreTable[computerChoice];
+                const diff = myScore - computerScore;
+                // 게임 판정
+                // 2, -1:승, -2, 1:패, 그외는 무승부
+                if([2, -1].includes(diff)){
+                    score += 1;
+                    message = '승리'
+                }else if([-2, 1].includes(diff)){
+                    score -= 1;
+                    message = '패배'
+                }else {
+                    message = '무승부'
+                }
+                $score.textContent = `${message} 총: ${score}점`;
+
+                // 2초후에 게임을 다시 시작
+                setTimeout(()=>{
+                    clickable = true;
+                    intervalId = setInterval(changeComputerHand, 50);
+                }, 2000);
+            }
         }
 
         $rock.addEventListener('click',clickButton);
