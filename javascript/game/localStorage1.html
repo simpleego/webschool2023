@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    이미지 : <img id="img" src="">
+    <p>맛있는 밀크 커피를 선택하셨네요</p>
+    <p>맛있는 밀크 커피를 맛있게 드세요</p>
+    <p>맛있는 밀크 커피 가격은 10000원입니다.</p>
+</body>
+<script>    
+    let $img = document.querySelector('#img');
+    let img_name = localStorage.getItem('img_name');
+    $img.src = img_name;
+</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    밀크커피: <img id="coffee" src="milkCoffee.jpg">
+    <button onclick="setPrice()">커피</button>
+</body>
+<script>
+
+    function setPrice(){
+        let $img = document.querySelector('#coffee');
+        let img_name = $img.src;
+        localStorage.setItem('img_name',img_name);
+
+        window.open('localStorage1.html',"가격윈도우");
+    }
+</script>
+</html>
