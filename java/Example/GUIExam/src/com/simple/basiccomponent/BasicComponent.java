@@ -11,6 +11,9 @@ public class BasicComponent extends JFrame implements ActionListener {
     private JLabel label;
     private JButton button;
     private CheckBoxPanel checkBoxPanel;
+    private RadioButtonPanel radioButtonPanel;
+    private TextPanel textPanel;
+    private ComboBoxPanel comboBoxPanel;
 
     public BasicComponent() {
         setTitle("윈도우 기본 컴포넌트");
@@ -19,6 +22,10 @@ public class BasicComponent extends JFrame implements ActionListener {
 
         // 컴포넌트 생성
         checkBoxPanel = new CheckBoxPanel();
+        radioButtonPanel = new RadioButtonPanel();
+        textPanel = new TextPanel();
+        comboBoxPanel = new ComboBoxPanel();
+
         panel = new JPanel();
         label = new JLabel("이미지를 보려면 아래 버튼을 눌러봐");
 
@@ -32,7 +39,11 @@ public class BasicComponent extends JFrame implements ActionListener {
         panel.add(button);
 
         add(checkBoxPanel,BorderLayout.NORTH);
+        add(radioButtonPanel,BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
+        add(textPanel,BorderLayout.EAST);
+        add(comboBoxPanel, BorderLayout.WEST);
+
         setVisible(true);
     }
 
