@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+        src="https://unpkg.com/vue@3/dist/vue.global.js">
+    </script>
+    <style>
+        .pinkBG {
+         background-color: lightpink;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-bind:class="vueClass">
+            <h3 v-bind:style="{ backgroundColor: isImportant ? 'lightcoral' : 'lightgray' }">인사말 : {{ message }} </h3>
+            <p v-bind:style="{fontSize: size +'px'}">가격 : {{price}}</p>
+            <p>{{'Random number: ' + Math.ceil(Math.random()*6) }}</p>
+            <img v-bind:src="url">
+            <p v-if="age > 20 ">
+                당신은 성인입니다. 출입 가능합니다.
+            </p>
+            <p v-else>
+                당신은 미성년입니다. 출입 불가능합니다.
+            </p>
+        </div>
+    </div>
+    <script>
+
+        const app = Vue.createApp({
+          data() {
+            return {
+              message: "안녕 친구야",
+              price: 5000,
+              vueClass: "pinkBG",
+              url: "img_beach3.jpg",
+              size: 50,
+              isImportant: true,
+              isOk: true,
+              age: 29,
+            }
+          }
+        })
+      
+       app.mount('#app')
+      
+      </script>
+</body>
+</html>

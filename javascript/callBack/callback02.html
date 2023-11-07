@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let add = 10;
+
+        function sum(x,y, callback){
+            callback(x+y);
+        }
+
+        sum(1,2, function(result){
+            console.log('result'+result);
+        });
+
+        console.log('add'+add);
+
+    </script>
+</body>
+</html>

@@ -55,6 +55,7 @@
     let colorCopy = colors.concat(colors);
     let shuffled = [];
     let clicked = [];
+    let completed = [];
     
     // 피셔-예이츠 셔블
     function shuffle(){
@@ -86,6 +87,35 @@
         if(clicked.length !== 2){
             return;
         }
+
+        // 2개의 카드가 클릭되었다.--> 2개의 카드가 같은지 비교
+        const  firstBackColor = clicked[0].querySelector('.card-back').style.backgroundColor;
+        const  secondBackColor = clicked[1].querySelector('.card-back').style.backgroundColor;
+        if(firstBackColor === secondBackColor){
+          completed.push(clicked[0]);
+          completed.push(clicked[1]);
+          clicked=[];
+          if(completed.length != total){
+            return;
+          }
+          setTimeout(() => {
+            alert('게임 종료, 축하합니다.');
+            resetGame();
+          }, 1000);          
+          return;
+        }
+        
+        // 카드가 다르면
+        setTimeout(()=> {
+          clicked[0].classList.remove('flipped');
+          clicked[1].classList.remove('flipped');
+          clicked=[];
+        },500);
+        
+    }
+
+    function resetGame(){
+      startGame();
     }
 
     function startGame(){
