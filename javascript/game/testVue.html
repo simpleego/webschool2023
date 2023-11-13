@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .many {
+            color: red;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>사용자 : {{ userName }}</h1>
+        <p>프론트엔드 프레임워크 : </p>
+        <input type="text" v-model="userName">
+        <button v-on:click="addItem">추가</button>
+        <button @click="popItem">삭제</button>
+        <button @click="fetchTodos">로드</button>
+        <ul>
+            <li v-for="(todo, index) in todos">
+                {{ todo.title }} : {{ todo.completed }}
+                <span v-if="todo.completed">
+                    <button  disabled>완료</button>
+                </span>
+                <span v-else="todo.completed">
+                    <button @click="completeTodo(index)">미완료</button>
+                </span>
+            </li>            
+        </ul>
+        <h2 v-bind:class="{many: completeTodos >= 3 }">
+            완료된 Todo는 총 : {{ completeTodos }}입니다.
+        </h2>
+    
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                userName: '홍길동',
+                frameworks: ['react'],
+                todos: []
+            },
+
+            computed: {
+                completeTodos(){
+                    return this.todos.filter(todo=>todo.completed === true).length;                }
+            },
+
+            methods: {
+                addItem(){
+                    this.frameworks.push(this.userName);
+                },
+                popItem(){
+                    this.frameworks.pop();
+                },
+                fetchTodos(){
+                    fetch("https://jsonplaceholder.typicode.com/todos?_start=0&_end=10")
+                    .then(res=>res.json())
+                    .then(data=>{
+                        console.log(data);
+                        this.todos = data;
+                    })
+                },
+                completeTodo(index){
+                    this.todos[index].completed = true;
+                }
+            }
+
+        })
+
+    </script>
+    
+</body>
+</html>

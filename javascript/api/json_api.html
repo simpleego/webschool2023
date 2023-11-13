@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>오늘 할일</h1>
+    <p>
+        할일 :<span id="todo"></span>
+    </p>
+    <p>
+        완료여부 : <span id="todo_complete"></span>
+    </p>
+    <script>
+        const $todo = document.querySelector('#todo');
+        const $todo_complete = document.querySelector('#todo_complete');
+
+        let title;       
+
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => {
+            // API 성공적으로 수행되었을때
+            if(response.ok){
+                return response.json();
+            }else{
+                return Promise.reject(response);
+            }
+        }).then(data=> {
+            // 응답 데이터를 JSON으로 변환
+            console.log(data.title);
+            todo_proc(data);            
+        }).catch(error=> {
+            // 에러 처리
+            console.log('알 수 없는 에러 발생')
+        });
+
+        //console.log(todos);
+        //$todo.textContent = title;
+        //$todo_complete.textContent = '아직 못하고 있음';
+
+        function todo_proc(data){
+            $todo.textContent = data.title;
+            $todo_complete.textContent = 
+            data.completed ? '완료':'미완료';
+        }
+    </script>
+</body>
+</html>

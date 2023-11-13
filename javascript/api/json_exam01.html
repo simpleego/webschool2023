@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let student = {
+            name: 'hohn',
+            age: 30,
+            isAdmin: false,
+            courses: ['html','css','js'],
+            wife: null
+        };
+
+        let user = {
+            sayHi(){
+                alert("Hello");
+            },
+            [Symbol("id")]: 123,//심볼 자료형
+            somthing: undefined,
+            gender: 'mail'            
+        };
+        
+        let meetup={
+            title:"Conference",
+            room: {
+                number: 23,
+                participants: ['john','ann']
+            }
+        };
+
+        let rabbit = {
+            name: 'tori',
+            color:'white',
+            size: null,
+            participants: [{name:'john'}, {name:'Alice'}],
+            birthDate: new Date(),
+            jump:()=>{
+                return 100;
+            }
+        }
+
+        //  객체를 문자열로
+        let json = JSON.stringify(rabbit);
+        let obj_rabbit = JSON.parse(json); // 공공API 받을 때
+        console.log(obj_rabbit);
+
+
+        // 문자열을 객체
+
+
+        //alert(json);
+        //user.sayHi();
+
+        //let json = JSON.stringify(student);
+        //alert(typeof json);
+        //alert(json);
+        //alert(JSON.stringify(user));
+
+    </script>
+</body>
+</html>
