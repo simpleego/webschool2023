@@ -20,6 +20,32 @@ public class Materials {
         return coffee;
     }
 
+    public boolean isMakeMilkCoffee(){
+        if(getCoffee() >= COFFEE_OUT
+                && getCream() >= COFFEE_OUT
+                &&  getSugar() >= SUGAR_OUT){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public boolean isMakeSugarCoffee(){
+        if(getCoffee() >= COFFEE_OUT
+                && getSugar() >= SUGAR_OUT){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public boolean isMakeBlackCoffee(){
+        if(getCoffee() >= COFFEE_OUT){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public int dispenseCoffee(){
         if(getCoffee() >= COFFEE_OUT) {
             setCoffee(getCoffee() - COFFEE_OUT);

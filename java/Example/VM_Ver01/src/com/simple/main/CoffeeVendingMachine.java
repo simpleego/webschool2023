@@ -1,5 +1,7 @@
 package com.simple.main;
 
+import com.simple.main.entity.Materials;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +28,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
     JButton coinReturnButton;
 
     CoinReturn coinReturn;
+    Materials materials;
     public CoffeeVendingMachine()  {
         setTitle("커피 자판기");
         setSize(600,800);
@@ -54,6 +57,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         coinReturnButton = new JButton("동전반환");
         coinReturn = new CoinReturn(this);
         coinReturnButton.addActionListener(coinReturn);
+        materials = new Materials(100,100,100);
 
         milkImg = new ImageIcon("milkOut.png");
         sugarImg = new ImageIcon("sugarOut.png");
@@ -127,15 +131,18 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
 
         if(e.getSource() == milkButton){
             productOutLabel.setIcon(milkImg);
-            //?
+            //밀크커피 제조
+            makeCoffee("milk");
             inMoney -= 300;
             money += 300;
         } else if (e.getSource() == sugarButton) {
             productOutLabel.setIcon(sugarImg);
+            makeCoffee("sugar");
             inMoney -= 200;
             money += 200;
         }else {
             productOutLabel.setIcon(blackImg);
+            makeCoffee("black");
             inMoney -= 200;
             money += 200;
         }
@@ -146,19 +153,75 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         processButton(inMoney);
     }
 
-    private void processButton(int inMoney) {
-        if(inMoney >= 300){
-            milkButton.setEnabled(true);
-            sugarButton.setEnabled(true);
-            blackButton.setEnabled(true);
-        } else if (inMoney >=200) {
-            sugarButton.setEnabled(true);
-            blackButton.setEnabled(true);
+    private void makeCoffee(String coffee) {
+        System.out.println(materials);
+        if(coffee.equals("milk")){
+            if(materials.isMakeMilkCoffee()) {
+                materials.dispenseCoffee();
+                materials.dispenseCream();
+                materials.dispenseSugar();
+
+                System.out.println(materials);
+            }else {
+                message.setText("밀크커피 재료부족합니다.!!");
+                JOptionPane.showMessageDialog(null,"재료부족");
+            }
+        }else if(coffee.equals("sugar")){
+            if(materials.isMakeSugarCoffee()) {
+                materials.dispenseCoffee();
+                materials.dispenseSugar();
+
+                System.out.println(materials);
+            }else {
+                message.setText("설탕커피 재료부족합니다.!!");
+                JOptionPane.showMessageDialog(null,"재료부족");
+            }
+
         }else {
-            milkButton.setEnabled(false);
-            sugarButton.setEnabled(false);
-            blackButton.setEnabled(false);
+            if(materials.isMakeBlackCoffee()) {
+                materials.dispenseCoffee();
+                System.out.println(materials);
+            }else {
+                message.setText("밀크커피 재료부족합니다.!!");
+                JOptionPane.showMessageDialog(null,"재료부족");
+            }
+
         }
+    }
+
+    private void processButton(int inMoney) {
+
+        milkButton.setEnabled(false);
+        sugarButton.setEnabled(false);
+        blackButton.setEnabled(false);
+
+        if(inMoney >= 300) {
+            if(materials.isMakeMilkCoffee() &&
+                materials.isMakeSugarCoffee() &&
+                materials.isMakeBlackCoffee()) {
+                    milkButton.setEnabled(true);
+                    sugarButton.setEnabled(true);
+                    blackButton.setEnabled(true);
+            }
+        }
+
+        if (inMoney >= 200){
+            if(materials.isMakeSugarCoffee() &&
+                    materials.isMakeBlackCoffee()){
+                sugarButton.setEnabled(true);
+                blackButton.setEnabled(true);
+            }
+        }
+
+        // 재표체크
+        if(!materials.isMakeMilkCoffee()){
+            JOptionPane.showMessageDialog(null,"밀크커피 재료부족");
+        }else if(!materials.isMakeSugarCoffee()){
+            JOptionPane.showMessageDialog(null,"설탕커피 재료부족");
+        }else if(!materials.isMakeBlackCoffee()){
+            JOptionPane.showMessageDialog(null,"블랙커피 재료부족");
+        }
+
     }
 
     public static void main(String[] args) {
