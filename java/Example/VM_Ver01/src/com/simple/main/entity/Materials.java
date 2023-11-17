@@ -4,9 +4,16 @@ public class Materials {
     final int COFFEE_OUT = 10;
     final int SUGAR_OUT = 10;
     final int CREAM_OUT = 20;
+
+    final int MAX_COFF_MATERIAL = 150;
+
+    final int MONITOR_COFFEE_RATE = 10;
     private int coffee;
     private int cream;
     private int sugar;
+    private int coffeeRate;
+    private int creamRate;
+    private int sugarRate;
 
     public Materials(){
     }
@@ -44,6 +51,35 @@ public class Materials {
         }else {
             return false;
         }
+    }
+
+    private void calculateCoffeeRate(){
+        // 커피재료의 잔량 계산
+        coffeeRate = (int) (((double)getCoffee() / MAX_COFF_MATERIAL)*100);
+    }
+    private void calculateCreamRate(){
+        // 프림재료의 잔량 계산
+        creamRate = (getCream() / MAX_COFF_MATERIAL)*100;
+    }
+
+    private void calculateSugarRate(){
+        // 프림재료의 잔량 계산
+        sugarRate = (getSugar() / MAX_COFF_MATERIAL)*100;
+    }
+
+    public int showCoffeeRate(String coffee){
+        int total=0;
+        if(coffee.equals("coffee")){
+            calculateCoffeeRate();
+            total = coffeeRate;
+        }else if(coffee.equals("cream")){
+            calculateCreamRate();
+            total = creamRate;
+        }else if(coffee.equals("sugar")){
+            calculateSugarRate();
+            total = sugarRate;
+        }
+        return total;
     }
 
     public int dispenseCoffee(){

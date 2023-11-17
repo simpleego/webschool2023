@@ -16,6 +16,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
 
     private int returnMoney;  // 반환할 돈
     JButton milkButton, blackButton, sugarButton;
+    JButton checkCoffeeButton;
     JLabel milkLabel, blackLabel, sugarLabel;
 
     JLabel coinInputLabel;
@@ -42,6 +43,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         milkButton = new JButton("밀크커피");
         sugarButton = new JButton("설탕커피");
         blackButton = new JButton("블랙커피");
+        checkCoffeeButton = new JButton("재료확인");
 
         milkLabel = new JLabel("300원");
         sugarLabel = new JLabel("200원");
@@ -72,6 +74,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         milkButton.addActionListener(this);
         sugarButton.addActionListener(this);
         blackButton.addActionListener(this);
+        checkCoffeeButton.addActionListener(this);
         coinInputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,6 +119,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         add(message);
         add(productOutLabel);
         add(coinReturnButton);
+        add(checkCoffeeButton);
 
         setVisible(true);
     }
@@ -146,6 +150,13 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             inMoney -= 200;
             money += 200;
         }
+
+        if(e.getSource() == checkCoffeeButton) {
+            System.out.println(materials.showCoffeeRate("coffee"));
+            System.out.println(materials.showCoffeeRate("cream"));
+            System.out.println(materials.showCoffeeRate("sugar"));
+        }
+
         String inMoney_ =
                 coinInputLabel.getText().substring(0,7)+inMoney+"원";
         coinInputLabel.setText(inMoney_);
@@ -213,7 +224,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             }
         }
 
-        // 재표체크
+        // 재료체크
         if(!materials.isMakeMilkCoffee()){
             JOptionPane.showMessageDialog(null,"밀크커피 재료부족");
         }else if(!materials.isMakeSugarCoffee()){
