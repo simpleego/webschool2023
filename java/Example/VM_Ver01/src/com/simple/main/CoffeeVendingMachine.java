@@ -26,7 +26,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
     JLabel message;
     JLabel productOutLabel;
     Icon milkImg, sugarImg, blackImg;
-    JButton coinReturnButton;
+    JButton coinReturnButton, adminButton;
 
     CoinReturn coinReturn;
     Materials materials;
@@ -58,8 +58,10 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         productOutLabel = new JLabel("");
         coinReturnButton = new JButton("동전반환");
         coinReturn = new CoinReturn(this);
+        adminButton = new JButton("관리자");
+
         coinReturnButton.addActionListener(coinReturn);
-        materials = new Materials(100,100,100);
+        materials = new Materials(150,150,150);
 
         milkImg = new ImageIcon("milkOut.png");
         sugarImg = new ImageIcon("sugarOut.png");
@@ -75,6 +77,10 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         sugarButton.addActionListener(this);
         blackButton.addActionListener(this);
         checkCoffeeButton.addActionListener(this);
+        adminButton.addActionListener(this);
+
+        checkCoffeeButton.setVisible(false);
+
         coinInputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,6 +126,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         add(productOutLabel);
         add(coinReturnButton);
         add(checkCoffeeButton);
+        add(adminButton);
 
         setVisible(true);
     }
@@ -144,17 +151,22 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             makeCoffee("sugar");
             inMoney -= 200;
             money += 200;
-        }else {
+        }else if(e.getSource() == blackButton) {
             productOutLabel.setIcon(blackImg);
             makeCoffee("black");
             inMoney -= 200;
             money += 200;
         }
 
+        // 관리자 기능 처리
+        if(e.getSource() == adminButton) {
+            checkCoffeeButton.setVisible(true);
+        }
+
         if(e.getSource() == checkCoffeeButton) {
-            System.out.println(materials.showCoffeeRate("coffee"));
-            System.out.println(materials.showCoffeeRate("cream"));
-            System.out.println(materials.showCoffeeRate("sugar"));
+            System.out.println("커피잔량: "+materials.showCoffeeRate("coffee")+"%");
+            System.out.println("프림잔량: "+materials.showCoffeeRate("cream")+"%");
+            System.out.println("설탕잔량: "+materials.showCoffeeRate("sugar")+"%");
         }
 
         String inMoney_ =
@@ -196,12 +208,10 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
                 message.setText("밀크커피 재료부족합니다.!!");
                 JOptionPane.showMessageDialog(null,"재료부족");
             }
-
         }
     }
 
     private void processButton(int inMoney) {
-
         milkButton.setEnabled(false);
         sugarButton.setEnabled(false);
         blackButton.setEnabled(false);

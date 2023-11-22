@@ -59,13 +59,11 @@ public class Materials {
     }
     private void calculateCreamRate(){
         // 프림재료의 잔량 계산
-        creamRate = (getCream() / MAX_COFF_MATERIAL)*100;
-    }
+        creamRate = (int) (((double)getCream() / MAX_COFF_MATERIAL)*100);    }
 
     private void calculateSugarRate(){
         // 프림재료의 잔량 계산
-        sugarRate = (getSugar() / MAX_COFF_MATERIAL)*100;
-    }
+        sugarRate = (int) (((double)getSugar() / MAX_COFF_MATERIAL)*100);    }
 
     public int showCoffeeRate(String coffee){
         int total=0;
