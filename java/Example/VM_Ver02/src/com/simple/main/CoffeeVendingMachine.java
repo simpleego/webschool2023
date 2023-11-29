@@ -36,14 +36,10 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
 
     CoinReturn coinReturn;
     Materials materials;
-
-    DBConnect dbcon;
     PreparedStatement pstmt;
 
     public CoffeeVendingMachine()  {
 
-        // DB 객체 초기화
-        dbInit();
         setTitle("커피 자판기");
         setSize(600,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,10 +138,6 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         add(adminButton);
 
         setVisible(true);
-    }
-
-    private void dbInit() {
-        dbcon = new DBConnect();
     }
 
     public int getInMoney(){
@@ -257,31 +249,30 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
 
         String INSERT_COFFEE = "insert into salecoffee "+
         " (saleid, productname,amount,saleprice, saledate) " +
-                " values(?, ?, 1, ?,systimestamp)";
+                " values(seq_test.nextval, ?, 1, ?,systimestamp)";
 
         System.out.println("SQL : "+INSERT_COFFEE);
-        try {
-            pstmt = dbcon.getCon().prepareStatement(INSERT_COFFEE);
-            pstmt.setInt(1,saleID++ );
-            pstmt.setString(2, coffee);
-            pstmt.setInt(3, Materials.MILK_COFFEE_PRICE);
 
-            int n =  pstmt.executeUpdate();
-            // 테이블 데이터(rs)를 출력한다.
-            // 타이틀 출력
-            if(n>0) {
-                System.out.println("데이터 입력 성공 :"+n);
-            }else {
-                System.out.println("데이터 입력 실패 :"+n);
-            }
+        try {
+            pstmt = DBConnect.getConnection().prepareStatement(INSERT_COFFEE);
+            pstmt.setString(1, coffee);
+            pstmt.setInt(2, Materials.MILK_COFFEE_PRICE);
+
+            int n = pstmt.executeUpdate();
+
+        // 테이블 데이터(rs)를 출력한다.
+        // 타이틀 출력
+        if(n>0) {
+            System.out.println("데이터 입력 성공 :"+n);
+        }else {
+            System.out.println("데이터 입력 실패 :"+n);
+        }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                //rs.close();
                 pstmt.close();
-                dbcon.getCon().close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
