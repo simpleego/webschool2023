@@ -1,6 +1,7 @@
 package com.simple.main;
 
 import com.simple.main.entity.Materials;
+import com.simple.utility.DBConnect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 
 public class CoffeeVendingMachine extends JFrame implements ActionListener {
 
+    static int saleID = 0;
     private int inMoney; // 사용자가 입력한 돈
     private int money;// 자판기 수입
 
@@ -35,7 +37,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
     CoinReturn coinReturn;
     Materials materials;
 
-    Connection con;
+    DBConnect dbcon;
     PreparedStatement pstmt;
 
     public CoffeeVendingMachine()  {
@@ -56,9 +58,9 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         blackButton = new JButton("블랙커피");
         checkCoffeeButton = new JButton("재료확인");
 
-        milkLabel = new JLabel("300원");
-        sugarLabel = new JLabel("200원");
-        blackLabel = new JLabel("200원");
+        milkLabel = new JLabel(Materials.MILK_COFFEE_PRICE+"원");
+        sugarLabel = new JLabel(Materials.SUGAR_COFFEE_PRICE+"원");
+        blackLabel = new JLabel(Materials.BLACK_COFFEE_PRICE+"원");
 
         coinInputLabel = new JLabel("동전 입력 : ");
         coinInputTextField = new JTextField(5);
@@ -143,27 +145,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
     }
 
     private void dbInit() {
-        // 접속할 주소
-        // 접속할 계정 및 비밀번호
-        String url = "jdbc:oracle:thin:@localhost:1521:xe";
-        String userid="c##madang";
-        String pwd = "madang";
-
-        // 연결할 드라이버 로드
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            System.out.println("드라이버 로드 성공");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // DB 접속
-        try {
-            con = DriverManager.getConnection(url,userid,pwd);
-            System.out.println("DB 접속 성공..");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        dbcon = new DBConnect();
     }
 
     public int getInMoney(){
@@ -179,18 +161,18 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             productOutLabel.setIcon(milkImg);
             //밀크커피 제조
             makeCoffee("milk");
-            inMoney -= 300;
-            money += 300;
+            inMoney -= Materials.MILK_COFFEE_PRICE;
+            money += Materials.MILK_COFFEE_PRICE;
         } else if (e.getSource() == sugarButton) {
             productOutLabel.setIcon(sugarImg);
             makeCoffee("sugar");
-            inMoney -= 200;
-            money += 200;
+            inMoney -= Materials.SUGAR_COFFEE_PRICE;
+            money += Materials.SUGAR_COFFEE_PRICE;
         }else if(e.getSource() == blackButton) {
             productOutLabel.setIcon(blackImg);
             makeCoffee("black");
-            inMoney -= 200;
-            money += 200;
+            inMoney -= Materials.BLACK_COFFEE_PRICE;
+            money += Materials.BLACK_COFFEE_PRICE;;
         }
 
         // 관리자 기능 처리
@@ -244,9 +226,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
                 materials.dispenseCoffee();
                 materials.dispenseCream();
                 materials.dispenseSugar();
-                saveSaleCoffee("milk");
-
-                System.out.println(materials);
+                saveSaleCoffee("milk",Materials.MILK_COFFEE_PRICE);
             }else {
                 message.setText("밀크커피 재료부족합니다.!!");
                 JOptionPane.showMessageDialog(null,"재료부족");
@@ -255,8 +235,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             if(materials.isMakeSugarCoffee()) {
                 materials.dispenseCoffee();
                 materials.dispenseSugar();
-
-                System.out.println(materials);
+                saveSaleCoffee("sugar",Materials.SUGAR_COFFEE_PRICE);
             }else {
                 message.setText("설탕커피 재료부족합니다.!!");
                 JOptionPane.showMessageDialog(null,"재료부족");
@@ -265,6 +244,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         }else {
             if(materials.isMakeBlackCoffee()) {
                 materials.dispenseCoffee();
+                saveSaleCoffee("black",Materials.SUGAR_COFFEE_PRICE);
                 System.out.println(materials);
             }else {
                 message.setText("밀크커피 재료부족합니다.!!");
@@ -273,8 +253,39 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         }
     }
 
-    private void saveSaleCoffee(String milk) {
-        // 
+    private void saveSaleCoffee(String coffee, int price) {
+
+        String INSERT_COFFEE = "insert into salecoffee "+
+        " (saleid, productname,amount,saleprice, saledate) " +
+                " values(?, ?, 1, ?,systimestamp)";
+
+        System.out.println("SQL : "+INSERT_COFFEE);
+        try {
+            pstmt = dbcon.getCon().prepareStatement(INSERT_COFFEE);
+            pstmt.setInt(1,saleID++ );
+            pstmt.setString(2, coffee);
+            pstmt.setInt(3, Materials.MILK_COFFEE_PRICE);
+
+            int n =  pstmt.executeUpdate();
+            // 테이블 데이터(rs)를 출력한다.
+            // 타이틀 출력
+            if(n>0) {
+                System.out.println("데이터 입력 성공 :"+n);
+            }else {
+                System.out.println("데이터 입력 실패 :"+n);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //rs.close();
+                pstmt.close();
+                dbcon.getCon().close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void processButton(int inMoney) {
@@ -282,7 +293,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
         sugarButton.setEnabled(false);
         blackButton.setEnabled(false);
 
-        if(inMoney >= 300) {
+        if(inMoney >= Materials.MILK_COFFEE_PRICE) {
             if(materials.isMakeMilkCoffee() &&
                 materials.isMakeSugarCoffee() &&
                 materials.isMakeBlackCoffee()) {
@@ -292,7 +303,7 @@ public class CoffeeVendingMachine extends JFrame implements ActionListener {
             }
         }
 
-        if (inMoney >= 200){
+        if (inMoney >= Materials.SUGAR_COFFEE_PRICE){
             if(materials.isMakeSugarCoffee() &&
                     materials.isMakeBlackCoffee()){
                 sugarButton.setEnabled(true);

@@ -5,6 +5,10 @@ public class Materials {
     final int SUGAR_OUT = 10;
     final int CREAM_OUT = 20;
 
+    public static final int MILK_COFFEE_PRICE = 300;
+    public static final int SUGAR_COFFEE_PRICE = 200;
+    public static final int BLACK_COFFEE_PRICE = 200;
+
     final int MAX_COFF_MATERIAL = 150;
 
     public static final int MONITOR_COFFEE_RATE = 30;
