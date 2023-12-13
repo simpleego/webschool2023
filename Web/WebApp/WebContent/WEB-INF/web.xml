@@ -6,7 +6,7 @@
   http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
   id="WebApp_ID" version="4.0">
   
-  <display-name>WebApp</display-name>
+  <display-name>WebApp</display-name> 
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
