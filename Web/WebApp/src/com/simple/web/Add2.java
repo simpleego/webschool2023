@@ -38,7 +38,7 @@ public class Add2 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.
+		
 	}
 
 }
