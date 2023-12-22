@@ -1,5 +1,24 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Driver"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	// DB 접속
+	// SQL 수행(공지사항 리스트 요청)
+	// 공지사항 결과 받기( ArrayList )
+	String url = "jdbc:oracle:thin:@192.168.1.13:1521/xe";
+	String sql = "SELECT * FROM NOTICE";
+	
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection con = DriverManager.getConnection(url, "system", "pjc0129");	
+	Statement stmt = con.createStatement();
+	ResultSet rs = stmt.executeQuery(sql);
+	
+%>    
 <!DOCTYPE html>
 <html>
 
@@ -76,7 +95,7 @@
                         <h1 class="hidden">고객메뉴</h1>
                         <ul class="linear-layout">
                             <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지" /></a></li>
-                            <li><a href="/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
+                            <li><a href="/notice/list.jsp"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
                         </ul>
                     </nav>
 
@@ -131,8 +150,7 @@
 
 
 		<main class="main">
-			<h2 class="main title">공지사항</h2>
-			
+			<h2 class="main title">공지사항</h2>			
 			<div class="breadcrumb">
 				<h3 class="hidden">경로</h3>
 				<ul>
@@ -172,57 +190,20 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					<% while(rs.next()) { %>
 							
 					<tr>
-						<td>8</td>
-						<td class="title indent text-align-left"><a href="detail.html">스프링 8강까지의 예제 코드</a></td>
-						<td>newlec</td>
+						<td><%=rs.getInt("ID") %></td>
+						<td class="title indent text-align-left"><a href='detail?id=<%=rs.getInt("ID") %>'> <%=rs.getString("TITLE") %></a> </td>
+						<td><%=rs.getString("WRITER_ID") %></td>
 						<td>
-							2019-08-18		
+							<%=rs.getString("REGDATE") %>		
 						</td>
-						<td>146</td>
-					</tr>
-							
-					<tr>
-						<td>7</td>
-						<td class="title indent text-align-left"><a href="detail.html">스프링 DI 예제 코드</a></td>
-						<td>newlec</td>
-						<td>
-							2019-08-15		
-						</td>
-						<td>131</td>
-					</tr>
-							
-					<tr>
-						<td>6</td>
-						<td class="title indent text-align-left"><a href="detail.html">뉴렉쌤 9월 초 국기과정 모집 안내</a></td>
-						<td>newlec</td>
-						<td>
-							2019-06-11		
-						</td>
-						<td>517</td>
-					</tr>
-							
-					<tr>
-						<td>5</td>
-						<td class="title indent text-align-left"><a href="detail.html">뉴렉처 강의 수강 방식 안내</a></td>
-						<td>newlec</td>
-						<td>
-							2019-05-24		
-						</td>
-						<td>448</td>
-					</tr>
-							
-					<tr>
-						<td>4</td>
-						<td class="title indent text-align-left"><a href="detail.html">자바 구조적인 프로그래밍 강의 예제 파일</a></td>
-						<td>newlec</td>
-						<td>
-							2019-04-24		
-						</td>
-						<td>520</td>
+						<td><%=rs.getString("HIT") %></td>
 					</tr>
 					
+					<% } %>
 					
 					</tbody>
 				</table>
