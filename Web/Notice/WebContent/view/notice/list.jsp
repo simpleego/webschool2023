@@ -6,6 +6,7 @@
 <%@page import="java.sql.Driver"%>
 <%@page import="java.sql.Connection"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
@@ -191,7 +192,7 @@
 							<td class="title indent text-align-left"><a href='detail?id=${n.id }'>${n.title }</a> </td>
 							<td>${n.writerId }</td>
 							<td>
-								${n.regDate } %>		
+								<fmt:formatDate pattern="yyyy년MM월dd일 " value="${n.regDate }"/>										
 							</td>
 							<td>${n.hit }</td>
 						</tr>					
@@ -211,7 +212,7 @@
 	<div>
 		<c:set var="page" value="${(param.p == null)?1:param.p }" />
 		<c:set var="startNum"  value="${page-(page-1)%5 }"/>
-		<c:set var="lastNum"  value="4" />
+		<c:set var="lastNum"  value="28" />
 		
 		<c:if test="${startNum>1 }" >
 			<a href="?p=${startNum-1 }&t=&q=" class="btn btn-prev">이전</a>
@@ -227,8 +228,15 @@
 		</c:forEach>		
 	</ul>
 	<div>
+	<c:if test="${startNum+5 < lastNum }" >
+			<a href="?p=${startNum+5 }&t=&q=" class="btn btn-prev">다음</a>
+	</c:if>
+	<c:if test="${startNum+5 >= lastNum}" >
+		<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+	</c:if>
+	
 		
-			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+			
 		
 	</div>
 	
