@@ -4,6 +4,8 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -170,7 +172,20 @@
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3">${n.writerId }${n.files}</td>
+									<td colspan="3" style="text-align:left">
+										<c:forTokens varStatus="st" var="fileName" items="${n.files}" delims=",">
+											<!--   style 태그를 상황에 따라서 적용 -->
+											<c:set var="style" value="" />
+											<c:if test="${fn:endsWith(fileName, '.zip') }">
+												<c:set var = "style" value="font-weight:bold; color:red"/>
+											</c:if>
+											<a href="${fileName }" style="${style}">${fn:toLowerCase(fileName) }</a>
+											<c:if test="${!st.last}">
+												/
+											</c:if>
+											
+										</c:forTokens>
+									</td>
 								</tr>
 								<tr class="content">
 									<td colspan="4">${n.content}</td>
