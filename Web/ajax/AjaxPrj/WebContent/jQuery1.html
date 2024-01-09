@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ID 셀렉터</title>
+<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		const content = $("div").text();
+		console.log(content)
+	})
+	
+	function addHtml(){
+		$("#article").html("<img src='https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png'> ");
+		//$("#article").text('안녕하세요'+'<br>'+'안녕하세요');
+	}
+	
+	function getUserName(){
+		//const username = $("#username").val();
+		$("#username").val('홍길동');
+		//alert(username);
+	}
+</script>
+
+</head>
+<body>
+	<div class="class1">안녕하세요</div>
+	<div id="unique2">제이쿼리입니다.</div>
+	<div id="unique3">
+		<P>제이쿼리는 아주 쉽습니다.</P>
+	</div>
+	<div>
+		<p id="article"></p>
+	</div>
+	사용자 이름 : <input id="username" type="text" >
+	<input type="button" value="추가하기" onClick="addHtml()" />
+	<input type="button" value="사용자이름" onClick="getUserName()" />
+	
+</body>
+</html>

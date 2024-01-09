@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax 연습1</title>
+<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script type="text/javascript">
+  function fn_process(){
+	  $.ajax({
+		  type:"post",
+		  dataType:"text",
+		  data: {param:"hello, jquery"},
+		  async:false,
+		  url:"http://localhost:8080/AjaxPrj/ajaxTest1",
+		  success: function(data1,textStatus){
+			  $('#message').append(data1);
+			  alert(textStatus);
+		  },
+		  error: function(data, textStatus){
+			  alert("에러가 발생했습니다.");
+		  },
+		  complete: function(data, textStatus){
+			  alert("작업을 완료했습니다.")
+		  }	 
+	  });
+  }
+
+</script>
+
+
+</head>
+<body>
+<input type="button" value="전송하기" onClick="fn_process()"><br>
+<h1>서버로부터 전송된 데이터</h1>
+<div id="message">
+
+</div>
+
+</body>
+</html>

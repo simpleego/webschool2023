@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax 연습1</title>
+<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script type="text/javascript">
+  function fn_process(){
+	  $.ajax({
+		  type:"post",
+		  dataType:"xml",
+		  async:false,
+		  url:"http://localhost:8080/AjaxPrj/ajaxTest2",
+		  success: function(info,textStatus){
+			  $(info).find("book").each(function(){
+				const title = $(this).find("title").text();
+				const writer = $(this).find("writer").text();
+				const image = $(this).find("image").text();
+				
+				$("#bookInfo").append(
+					"<p>"+title+"</p>"+		
+					"<p>"+writer+"</p>"+		
+					"<img src="+image+" />"
+				);
+				  
+			  });
+			  
+		  },
+		  error: function(data, textStatus){
+			  alert("에러가 발생했습니다.");
+		  },
+		  complete: function(data, textStatus){
+			  alert("작업을 완료했습니다.")
+		  }	 
+	  });
+  }
+
+</script>
+
+
+</head>
+<body>
+<input type="button" value="도서목록요청" onClick="fn_process()"><br>
+<h1>도서 목록</h1>
+<div id="bookInfo">
+
+</div>
+
+</body>
+</html>
