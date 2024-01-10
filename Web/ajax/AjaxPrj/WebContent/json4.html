@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#checkJson").click( function() {
+		$.ajax({
+			type:"post",
+			async: false,
+			url:"http://localhost:8080/AjaxPrj/json3",
+			success: function(data, textStatus){
+				const jsonInfo = JSON.parse(data);
+				let memberInfo = "회원정보<br>";
+				memberInfo += "=============<br>";
+				for(let i in jsonInfo.members){					
+					memberInfo += "이름:"+jsonInfo.members[i].name+"<br>";
+					memberInfo += "나이:"+jsonInfo.members[i].age+"<br>";
+					memberInfo += "성별:"+jsonInfo.members[i].gender+"<br>";
+					memberInfo += "별명:"+jsonInfo.members[i].nickname+"<br>";					
+				}
+				
+				let booksInfo = "도서정보<br>";
+				console.log(jsonInfo.books);
+				booksInfo += "=============<br>";
+				for(let i in jsonInfo.books){	
+					booksInfo += "제목:"+jsonInfo.books[i].title+"<br>";
+					booksInfo += "저자:"+jsonInfo.books[i].writer+"<br>";
+					booksInfo += "가격:"+jsonInfo.books[i].price+"<br>";
+					booksInfo += "장르:"+jsonInfo.books[i].genre+"<br>";
+					imageURL = jsonInfo.books[i].image;
+					booksInfo += "<img src="+imageURL+ " />"+"<br>";					
+				}
+								
+				$("#output").html(memberInfo)				
+				$("#books").html(booksInfo)				
+			},
+			error: function(data, textStatus){
+				alert("에러가 발생")	
+			},
+			complete: function(data, textStatus){
+				alert("전송 완료되었습니다.")	
+			}	
+		});
+	});	
+});
+</script>
+</head>
+<body>
+	<a id="checkJson" style="cursor:pointer">회원정보수신</a><br>
+	<div id="output"></div>
+	<div id="books"></div>
+</body>
+</html>
