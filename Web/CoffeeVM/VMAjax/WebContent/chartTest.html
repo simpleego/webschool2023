@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>커피 판매 현황 차트</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style>
+	#chart_div {
+		width: 400px;
+	}
+</style>
+</head>
+<body>
+  <h1>차트 영역</h1>
+  <div id="chart_div"></div>
+
+</body>
+<script>
+	google.charts.load('current', {	 packages: ['corechart', 'bar']});
+	google.charts.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+		  const data = google.visualization.arrayToDataTable([
+			  ['상품종류','총판매수량','총판매금액'],
+			  ['밀크커피', 200, 6000],
+			  ['프림커피', 120, 3000],
+			  ['설탕커피', 100, 4000],
+			  ['블랙커피', 100, 1000],
+		  ]	 );
+
+		  var options = {
+		      title: '커피 자판기 상품종류별 판매 현황',
+		      vAxis: {title:'판매금액'},
+		      hAxis: {
+			    	  title: '상품종류',
+			    	  titleTextStyle:{color:'red'}
+			      	},
+		    };
+		  
+		  const coffChart = new google.visualization.ColumnChart(
+				  document.getElementById('chart_div'));
+		  coffChart.draw(data, options);
+		}
+</script>
+</html>
