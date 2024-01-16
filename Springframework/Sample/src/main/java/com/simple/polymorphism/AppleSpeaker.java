@@ -1,5 +1,8 @@
 package com.simple.polymorphism;
 
+import org.springframework.stereotype.Component;
+
+@Component("apple")
 public class AppleSpeaker implements Speaker {
 	
 	public AppleSpeaker() {
@@ -8,12 +11,12 @@ public class AppleSpeaker implements Speaker {
 	
 	@Override
 	public void volumeUp() {
-		System.out.println("소리는 높인다");		
+		System.out.println("애플 스피커 소리는 높인다");		
 	}
 
 	@Override
 	public void volumeDown() {
-		System.out.println("소리는 낮춘다");
+		System.out.println("애플 스피커 소리는 낮춘다");
 	}
 
 }
