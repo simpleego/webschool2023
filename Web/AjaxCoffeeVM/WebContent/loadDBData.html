@@ -3,31 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <title>DB 데이터 테이블로 출력</title>
+<style>
+	table {
+		border: 1px solid #ccc;
+	}
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
-
-<script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
   
+</head>
+<body>
+	<h1>DB에 저장된 데이터 출력</h1>
+	<table>
+		<tr>
+			<td>커피종류</td>
+			<td>판매량</td>
+		</tr>
+	
+	</table>
+	<input type="button" onclick="loadDBData();" value="DB데이터가져오기">
+	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+</body>
 <script>
-$(document).ready( function () {
-	loadDBData();
-	alert("!!");	
-});
-	
-	
+google.charts.load("current", {packages:['corechart']});
+
+function drawChart(coffees) {
+      var data = new google.visualization.DataTable();
+      
+      // 데이터 컬럼 설정
+      data.addColumn('string','커피종류');
+      data.addColumn('number','판매량');      
+      
+      // 차트 데이터는 2차원 배열
+      // DB로부터 전달받은 JSON객체 
+      /* coffeeArray = {"coffees":[
+    	  {"type":"밀크커피","amount":45},
+    	  {"type":"설탕커피","amount":15},
+    	  {"type":"프림커피","amount":37},
+    	  {"type":"블랙커피","amount":23}    	  
+      ]}; */
+      
+      //console.log(coffeeArray);
+      
+      // 2차원 배열 준비
+      const array2D = Array.from(Array(4),()=> Array(2).fill(null));
+      console.log(array2D);
+      
+      for(i=0; i<4; i++){
+    	  array2D[i][0] = coffees.coffees[i].type;
+    	  array2D[i][1] = coffees.coffees[i].amount;
+      }   
+      
+      data.addRows(array2D);
+      const options={
+    		  title:'자판기 상품종류별 판매현황',
+    		  vAxis:{title:'판매수량'},
+    		  hAxis:{
+    			  title:'상품종류',
+    			  titleTextStyle:{color:'red'}
+    		  },
+      };
+      
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(data, options);
+  }
+  
 function loadDBData() {
-	//  호출전 준비 작업		
-	alert("-->");
+	//  호출전 준비 작업	
 	$.ajax({
 		type : "get",
 		async : false,
-		dataType : "json",
 		url : "http://localhost:8080/loadcoffee",
 		success : function(data, textStatus) {
-			console.log(data);
-			//
+			const coffees = JSON.parse(data);
+			console.log(coffees.coffees[0]);
+			drawChart(coffees);			
 		},
 		error : function(data, textStatus) {
 			console.log("에러가 발생")
@@ -37,17 +87,5 @@ function loadDBData() {
 		}
 	});
 }	
-</script>
-</head>
-<body>
-<h1>DB에 저장된 데이터 출력</h1>
-<table>
-	<tr>
-		<td>커피종류</td>
-		<td>판매량</td>
-	</tr>
-
-</table>
-<input type="button" onclick="loadDBData();" value="DB데이터가져오기">
-</body>
+ </script>
 </html>
