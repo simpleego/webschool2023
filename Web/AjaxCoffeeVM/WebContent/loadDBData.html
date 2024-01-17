@@ -4,9 +4,35 @@
 <meta charset="UTF-8">
 <title>DB 데이터 테이블로 출력</title>
 <style>
-	table {
-		border: 1px solid #ccc;
-	}
+#chart_table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+  margin: 30px auto;
+  text-align: center;
+}
+
+#chart_table td, #chart_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#chart_table tr:nth-child(even){background-color: #f2f2f2;}
+
+#chart_table tr:hover {background-color: #ddd;}
+
+#chart_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+#columnchart {
+	width: 80%;
+   margin: 30px auto;
+}
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
@@ -14,15 +40,12 @@
 </head>
 <body>
 	<h1>DB에 저장된 데이터 출력</h1>
-	<table>
-		<tr>
-			<td>커피종류</td>
-			<td>판매량</td>
-		</tr>
 	
-	</table>
 	<input type="button" onclick="loadDBData();" value="DB데이터가져오기">
-	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+	<div id="columnchart" style="width: 900px; height: 300px;"></div>
+	<table id="chart_table">
+	  
+	</table>
 </body>
 <script>
 google.charts.load("current", {packages:['corechart']});
@@ -64,7 +87,7 @@ function drawChart(coffees) {
     		  },
       };
       
-      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart"));
       chart.draw(data, options);
   }
   
@@ -77,7 +100,8 @@ function loadDBData() {
 		success : function(data, textStatus) {
 			const coffees = JSON.parse(data);
 			console.log(coffees.coffees[0]);
-			drawChart(coffees);			
+			drawChart(coffees);	
+			drawTable(coffees);
 		},
 		error : function(data, textStatus) {
 			console.log("에러가 발생")
@@ -87,5 +111,24 @@ function loadDBData() {
 		}
 	});
 }	
+
+function drawTable(coffees){
+	
+	table_data ="<strong><caption>월별 커피 판매 현황</caption></strong>" +
+				"<tr>"+	
+					"<td>커피종류</td>"+
+					"<td>판매량</td>"+
+				"</tr>"
+	
+	for(i=0; i<4; i++){	
+		table_data += "<tr>"
+		table_data += "<td>"+coffees.coffees[i].type+"</td>";
+		table_data += "<td>"+coffees.coffees[i].amount+"</td>";	
+		table_data += "</tr>"
+	}
+				
+	$("#chart_table").html(table_data)	
+	
+}
  </script>
 </html>
