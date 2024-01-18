@@ -53,45 +53,25 @@ public class CoffeeVM extends HttpServlet {
 		}
 
 		// 커피 판매 처리
-		saleCoffee(coffee, valance,request, response, 
-				   session, writer);
+		saleCoffee(coffee);
 	}
 
-	private void saleCoffee(String coffee, int valance, HttpServletRequest request, HttpServletResponse response,
-			HttpSession session, PrintWriter writer) {
+	private void saleCoffee(String coffee) {
 		
 		// 커피판매
 		int price = 0;
-		String returnCoffee = "";
 
 		if (coffee.equals("밀크커피")) {
-			valance -= 300;
-			returnCoffee = "milkOut.png";
 			price = 300;
 		} else if (coffee.equals("프림커피")) {
-			valance -= 300;
-			returnCoffee = "creamOut.png";
 			price = 300;
 		} else if (coffee.equals("설탕커피")) {
-			valance -= 200;
-			returnCoffee = "sugarOut.png";
 			price = 200;
 		} else if (coffee.equals("블랙커피")) {
-			valance -= 200;
-			returnCoffee = "blackOut.png";
 			price = 200;
 		}
-
-		JSONObject coffeeInfo = new JSONObject();
-
-		coffeeInfo.put("valance", valance);
-		coffeeInfo.put("coffee", returnCoffee);
-        
-		String coffeeData = coffeeInfo.toJSONString();
-		writer.print(coffeeData);
 		
 		saveSalesDB(coffee, 1, price);
-		session.setAttribute("valance", valance);
 	}
 	
 	private void saveSalesDB(String coffee, int amount, int price) {

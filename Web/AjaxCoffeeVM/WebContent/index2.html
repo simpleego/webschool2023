@@ -8,7 +8,6 @@
 $(document).ready( function () {
 	const outCoffee = document.getElementById('coffeeImg');
 	
-	alert("!!");
 	$("#milk").attr("disabled", true); 
 	$("#cream").attr("disabled", true); 
 	$("#sugar").attr("disabled", true); 
@@ -46,19 +45,6 @@ function returnCoins() {
 
 	function coffee(coffee_) {
 		//  호출전 준비 작업	
-		if(coffee_ === "밀크커피"){
-			valance -= 300;			
-		}else if (coffee_ === "프림커피"){
-			valance -= 300;
-		}else if (coffee_ === "설탕커피"){
-			valance -= 200;
-		}else if (coffee_ === "블랙커피"){
-			valance -= 200;
-		}
-		
-		$("#valance").val(valance);
-		checkButtons(valance);
-		
 		coffeeValue = coffee_;
 		$.ajax({
 			type : "get",
@@ -87,17 +73,33 @@ function returnCoins() {
 		});
 	}
 	
-	let valance = 0;
 	function coins(coin) {
 		//  호출전 준비 작업				
-		valance += coin;	
-		
-		// 잔액표시
-		$("#valance").val(valance);
-		
-		// 버튼상태 제어
-		checkButtons(valance);
+		coinValue = coin;
+		//alert(coinValue);
+		$.ajax({
+			type : "get",
+			async : false,
+			dataType : "text",
+			url : "http://localhost:8080/coins",
+			data : {
+				coin : coinValue
+			},
+			success : function(data, textStatus) {
+				console.log(data);
+				const coffeeData = JSON.parse(data);
+				$("#valance").val(coffeeData.valance);
+				$("#returnValue").val(coffeeData.retCoins);
+			},
+			error : function(data, textStatus) {
+				console.log("에러가 발생")
+			},
+			complete : function(data, textStatus) {
+				console.log("전송 완료되었습니다.")
+			}
+		});
 	}
+	
 	
 </script>
 <style type="text/css">
@@ -245,12 +247,12 @@ table {
 </body>
 <script type="text/javascript">
 
-function checkButtons(valance) {	
+function checkButtons(valance) {
 	
-	$("#milk").attr("disabled", true); 
-	$("#cream").attr("disabled", true); 
-	$("#sugar").attr("disabled", true); 
-	$("#black").attr("disabled", true); 
+	let btnMilk="";
+	let btnCream="";
+	let btnSugar="";
+	let btnBlack="";
 	
 	if ( valance >= 300) {
 		// 모든 버튼 활성화
@@ -259,10 +261,11 @@ function checkButtons(valance) {
 		$("#sugar").attr("disabled", false); 
 		$("#black").attr("disabled", false); 
 	}else if(valance >= 200) {
-		$("#sugar").attr("disabled", false); 
-		$("#black").attr("disabled", false); 
+		// 해당 버튼 활성화
+		btnSugar="enable";
+		btnBlack="enable";
 	}
-}
+
 </script>
 </body>
 </html>
