@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      
+      // 데이터 컬럼 설정
+      data.addColumn('string','커피종류');
+      data.addColumn('number','판매량');      
+      
+      // 차트 데이터는 2차원 배열
+      // DB로부터 전달받은 JSON객체 
+      coffeeArray = {"coffees":[
+    	  {"type":"밀크커피","amount":45},
+    	  {"type":"설탕커피","amount":15},
+    	  {"type":"프림커피","amount":37},
+    	  {"type":"블랙커피","amount":23}    	  
+      ]};
+      
+      console.log(coffeeArray);
+      
+      // 2차원 배열 준비
+      const array2D = Array.from(Array(4),()=> Array(2).fill(null));
+      console.log(array2D);
+      
+      for(i=0; i<4; i++){
+    	  array2D[i][0] = coffeeArray.coffees[i].type;
+    	  array2D[i][1] = coffeeArray.coffees[i].amount;
+      }   
+      
+      data.addRows(array2D);
+      const options={
+    		  title:'자판기 상품종류별 판매현황',
+    		  vAxis:{title:'판매수량'},
+    		  hAxis:{
+    			  title:'상품종류',
+    			  titleTextStyle:{color:'red'}
+    		  },
+      };
+      
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(data, options);
+  }
+  </script>
+</head>
+<body>
+	<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+
+</body>
+</html>
