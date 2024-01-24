@@ -37,6 +37,8 @@ public class BoardDAO {
 
 	// 게시판 글 생성(추가)
 	public void insertBoard(BoardVO vo) {
+		
+		System.out.println("vo :"+vo);
 		System.out.println("==> JDBC로 insertBoard() 기능 처리");
 		try {
 			conn = JDBCUtil.getConnection();

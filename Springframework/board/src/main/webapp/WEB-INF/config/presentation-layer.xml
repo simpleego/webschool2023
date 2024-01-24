@@ -7,7 +7,7 @@
 
 	<context:component-scan base-package="com.springbook.view" />
 
-	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
 				<prop key="/login.do">login</prop>
@@ -28,5 +28,5 @@
 	<bean id="insertBoard" class="com.springbook.view.controller.InsertBordController" />
 	<bean id="deleteBoard" class="com.springbook.view.controller.DeleteBordController" />
 	<bean id="updateBoard" class="com.springbook.view.controller.UpdateBordController" />
-
+ -->
 </beans>

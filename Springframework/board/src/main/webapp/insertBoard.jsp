@@ -34,4 +34,7 @@
 		<hr>
 	</center>
 </body>
+<script>
+	alert("호출");
+</script>
 </html>
