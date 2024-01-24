@@ -43,6 +43,8 @@ public class CoffeeVM extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 
 		String coffee = request.getParameter("coffee");
+		
+		System.out.println("coffee:"+coffee);
 
 		int valance = 0;
 
@@ -60,32 +62,37 @@ public class CoffeeVM extends HttpServlet {
 		
 		// 커피판매
 		int price = 0;
+		int pId = 0;
 
 		if (coffee.equals("밀크커피")) {
 			price = 300;
+			pId = 1;
 		} else if (coffee.equals("프림커피")) {
 			price = 300;
+			pId = 2;
 		} else if (coffee.equals("설탕커피")) {
 			price = 200;
+			pId = 3;
 		} else if (coffee.equals("블랙커피")) {
 			price = 200;
+			pId = 4;
 		}
 		
-		saveSalesDB(coffee, 1, price);
+		saveSalesDB(pId, 1, price);
 	}
 	
-	private void saveSalesDB(String coffee, int amount, int price) {
+	private void saveSalesDB(int pId, int amount, int price) {
 		// 
 		PreparedStatement pstmt = null;
 		Connection conn=null;
 		
-		String INSERT_COFFEE = "insert into salescoffee (pName,amount,price) values(?,?,?)";
+		String INSERT_COFFEE = "insert into salescoffee (pID,amount,salesPrice) values(?,?,?)";
         System.out.println("SQL : " + INSERT_COFFEE);
 
         try {
         	conn = DBConnect.getConnection();
             pstmt = conn.prepareStatement(INSERT_COFFEE);
-            pstmt.setString(1, coffee);
+            pstmt.setInt(1, pId);
             pstmt.setInt(2, amount);
             pstmt.setInt(3, price);
             int n = pstmt.executeUpdate();
