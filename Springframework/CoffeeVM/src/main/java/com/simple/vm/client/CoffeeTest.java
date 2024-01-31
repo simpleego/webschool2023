@@ -3,7 +3,10 @@ package com.simple.vm.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.simple.vm.CoffeeVO;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+import com.simple.vm.CoffeeService;
 import com.simple.vm.SalesVO;
 import com.simple.vm.impl.CoffeeDAO;
 import com.simple.vm.impl.CoffeeServiceImpl;
@@ -12,12 +15,17 @@ public class CoffeeTest {
 
 	public static void main(String[] args) {	
 		
+		// 1. Spring 컨테이너 구동
+		AbstractApplicationContext container = new GenericXmlApplicationContext("applicationContext.xml");
+
+		// 2. 컨테이너로부터 필요한 객체를 요청
+		CoffeeService coffeeService = (CoffeeService) container.getBean("coffeeService");
+		
 		SalesVO vo = new SalesVO();
-		CoffeeDAO coffeeDAO = new CoffeeDAO();
-		CoffeeServiceImpl coffeeService = new CoffeeServiceImpl(coffeeDAO);
+		//CoffeeServiceImpl coffeeService = new CoffeeServiceImpl(coffeeDAO);
 		
 		// CoffeeDAO 호출
-		vo.setpID(1);
+		vo.setpID(2);
 		vo.setAmount(1);
 		vo.setSalesPrice(300);
 		
@@ -29,7 +37,7 @@ public class CoffeeTest {
 			System.out.println("판매정보 저장 실패");			
 		}
 		
-		
+		container.close();	
 		
 		/*
 		 * List<CoffeeVO> list = new ArrayList<>();

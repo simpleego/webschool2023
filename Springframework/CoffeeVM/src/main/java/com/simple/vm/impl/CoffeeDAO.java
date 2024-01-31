@@ -23,6 +23,10 @@ public class CoffeeDAO {
 	String SELECT_PRODUCT = "SELECT * FROM product;";
 	String INSERT_COFFEE = "insert into salescoffee (pID,amount,salesPrice) values(?,?,?)";
 
+	public CoffeeDAO() {
+		System.out.println("CoffeeDAO 생성됨");
+	}
+	
 	public List<CoffeeVO> loadProduct() {
 
 		System.out.println("--> loadProduct");
