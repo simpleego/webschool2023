@@ -16,12 +16,17 @@ public class LoginController{
 		System.out.println("로그인 화면으로 이동");
 		vo.setId("test");
 		vo.setPassword("test123");
-		return "redirect:login.jsp";
+		return "login.jsp";
 	}	
 	
 	@RequestMapping(value="/login.do", method=RequestMethod.POST)
 	public String login(UserVO vo, UserDAO userDAO) {
-		 
+		
+		System.out.println("로그인 인증 처리...");
+		if (vo.getId() == null || vo.getId().equals("")) {
+			throw new ArithmeticException("아이디는 반드시 입력해야 합니다.");
+		}
+		
 		UserVO user = userDAO.getUser(vo);
 		
 		// 3. 화면 네비게이션  

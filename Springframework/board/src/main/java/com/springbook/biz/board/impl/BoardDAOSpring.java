@@ -34,6 +34,10 @@ public class BoardDAOSpring  {
 
 		private final String BOARD_UPDATE = "UPDATE BOARD set title=?, content=? WHERE seq=?;";
 		private final String BOARD_DELETE = "DELETE FROM BOARD WHERE seq=?;";
+		
+		private final String BOARD_LIST_T = "SELECT * FROM board WHERE title like '%'||?||'%' ORDER BY seq DESC;";
+		private final String BOARD_LIST_C = "SELECT * FROM board WHERE content like '%'||?||'%' ORDER BY seq DESC;";
+		private final String BOARD_LIST_W = "SELECT * FROM board WHERE writer like '%'||?||'%' ORDER BY seq DESC;";
 
 		// 게시판 글 생성(추가)
 		public void insertBoard(BoardVO vo) {
@@ -56,8 +60,18 @@ public class BoardDAOSpring  {
 
 		// 게시판 글 조회, 상세조회
 		public List<BoardVO> getBoardList(BoardVO vo) {
-			System.out.println("==> Spring JDBC로 getBoardList() 기능 처리");			
-			return jdbcTemplate.query(BOARD_LIST, new BoardRowmapper());
+			System.out.println("==> Spring JDBC로 getBoardList() 기능 처리");
+			
+			Object[] args = {vo.getSearchKeyword() };
+			if(vo.getSearchCondition().equals("TITLE")) {
+				return jdbcTemplate.query(BOARD_LIST_T, args, new BoardRowmapper());				
+			}else if (vo.getSearchCondition().equals("CONTENT")) {
+				return jdbcTemplate.query(BOARD_LIST_C, args, new BoardRowmapper());							
+			}else if (vo.getSearchCondition().equals("WRITER")) {
+				return jdbcTemplate.query(BOARD_LIST_W, args, new BoardRowmapper());							
+			}
+			
+			return null;
 		}
 
 		// 게시판 상세 보기

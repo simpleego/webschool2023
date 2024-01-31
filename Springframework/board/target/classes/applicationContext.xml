@@ -25,12 +25,12 @@
 			<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<!-- Transaction 설정 -->
+	<!-- Transaction 설정 
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<tx:advice id="txAdvice"  transaction-manager="txManager">
+	 <tx:advice id="txAdvice"  transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="get*"  read-only="true"/>
 			<tx:method name="*"/>
@@ -41,7 +41,7 @@
 		<aop:pointcut id="txPointcut" expression="execution(* com.springbook.biz..*(..))" />
 		
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
-	</aop:config>
+	</aop:config> -->
 	<!--
 	<bean id="log1" class="com.springbook.biz.common.AroundAdvice" />
 	<bean id="log2" class="com.springbook.biz.common.BeforeAdvice" />

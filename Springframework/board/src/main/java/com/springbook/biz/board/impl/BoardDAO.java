@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.springbook.biz.board.BoardVO;
 import com.springbook.biz.common.JDBCUtil;
 
-@Repository("bdDAO")
+//@Repository
 public class BoardDAO {
 
 	// JDBC 멤버 선언
@@ -30,11 +30,23 @@ public class BoardDAO {
 	 */
 	
 	private final String BOARD_LIST = "SELECT * FROM board ORDER BY seq DESC;";
+	private final String BOARD_LIST_T = "SELECT * FROM board WHERE title like '%'||?||'%' ORDER BY seq DESC";
+	private final String BOARD_LIST_C = "SELECT * FROM board WHERE content like '%'||?||'%' ORDER BY seq DESC";
+	private final String BOARD_LIST_W = "SELECT * FROM board WHERE writer like '%'||?||'%' ORDER BY seq DESC";
+	
+	
 	private final String BOARD_GET = "SELECT * FROM board WHERE seq=?;";
 
 	private final String BOARD_UPDATE = "UPDATE BOARD set title=?, content=? WHERE seq=?;";
 	private final String BOARD_DELETE = "DELETE FROM BOARD WHERE seq=?;";
 
+	
+	public BoardDAO() {
+		
+		System.out.println("BoardDAO 객체 생성됩니다.");
+		// TODO Auto-generated constructor stub
+	}
+	
 	// 게시판 글 생성(추가)
 	public void insertBoard(BoardVO vo) {
 		
@@ -90,10 +102,23 @@ public class BoardDAO {
 	public List<BoardVO> getBoardList(BoardVO vo) {
 		System.out.println("==> JDBC로 getBoardList() 기능 처리");
 		List<BoardVO> boardList = new ArrayList<>();
+		
+		System.out.println(vo);
 		try {
 			conn = JDBCUtil.getConnection();
-			pstmt = conn.prepareStatement(BOARD_LIST);
+			
+			if(vo.getSearchCondition().equals("TITLE")) {
+				System.out.println("title 검색");
+				pstmt = conn.prepareStatement(BOARD_LIST_T);				
+			}else if(vo.getSearchCondition().equals("CONTENT")){
+				pstmt = conn.prepareStatement(BOARD_LIST_C);
+			}else if(vo.getSearchCondition().equals("WRITER")){
+				pstmt = conn.prepareStatement(BOARD_LIST_W);
+			}
+			
+			pstmt.setString(1,vo.getSearchKeyword());
 			rs = pstmt.executeQuery();
+			
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
 				board.setSeq(rs.getInt("SEQ"));
