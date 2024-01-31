@@ -32,28 +32,28 @@ public class CoffeeServiceImpl implements CoffeeService {
 	}
 
 	@Override
-	public int saveSales(SalesVO vo,
-			@RequestParam(value = "coffee", 
-				defaultValue = "밀크커피", 
-				required = false)
-	        String coffee ) {
+	public int saveSales(SalesVO vo, String coffee )	{
 		// 커피판매
-				int price = 0;
-				int pId = 0;
+		int price = 0;
+		int pId = 0;
 
-				if (coffee.equals("밀크커피")) {
-					price = 300;
-					pId = 1;
-				} else if (coffee.equals("프림커피")) {
-					price = 300;
-					pId = 2;
-				} else if (coffee.equals("설탕커피")) {
-					price = 200;
-					pId = 3;
-				} else if (coffee.equals("블랙커피")) {
-					price = 200;
-					pId = 4;
-				}
+		if (coffee.equals("밀크커피")) {
+			price = 300;
+			pId = 1;
+		} else if (coffee.equals("프림커피")) {
+			price = 300;
+			pId = 2;
+		} else if (coffee.equals("설탕커피")) {
+			price = 200;
+			pId = 3;
+		} else if (coffee.equals("블랙커피")) {
+			price = 200;
+			pId = 4;
+		}
+		
+		vo.setAmount(1);
+		vo.setpID(pId);
+		vo.setSalesPrice(price);
 		
 		return coffeeDAO.saveSales(vo);
 	}

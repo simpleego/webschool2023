@@ -29,7 +29,7 @@ public class CoffeeTest {
 		vo.setAmount(1);
 		vo.setSalesPrice(300);
 		
-		int ok = coffeeService.saveSales(vo);
+		int ok = coffeeService.saveSales(vo, "밀크커피");
 		
 		if(ok >0) {
 			System.out.println("판매정보 저장 성공");

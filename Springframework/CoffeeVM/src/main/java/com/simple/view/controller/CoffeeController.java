@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.simple.vm.CoffeeService;
@@ -33,8 +34,14 @@ public class CoffeeController {
 	}
 	
 	@RequestMapping("/coffee.vm")
-	public int saveSales(SalesVO vo) {			
-		return coffeeService.saveSales(vo);		
+	public void saveSales(SalesVO vo,
+			@RequestParam(value = "coffee", 
+			defaultValue = "밀크커피", 
+			required = false) String coffee
+			) {	
+		
+		System.out.println("coffee :"+ coffee);
+		coffeeService.saveSales(vo, coffee);		
 	}
 
 }
