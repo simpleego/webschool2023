@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.simple.vm.CoffeeService;
 import com.simple.vm.CoffeeVO;
+import com.simple.vm.SalesCoffeeVO;
 import com.simple.vm.SalesVO;
 
 @Service("coffeeService")
@@ -56,6 +57,12 @@ public class CoffeeServiceImpl implements CoffeeService {
 		vo.setSalesPrice(price);
 		
 		return coffeeDAO.saveSales(vo);
+	}
+
+	@Override
+	public List<SalesCoffeeVO> loadSalesCoffee() {
+		
+		return coffeeDAO.loadSalesCoffee();
 	}
 
 }

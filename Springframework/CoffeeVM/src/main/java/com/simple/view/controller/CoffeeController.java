@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.simple.vm.CoffeeService;
 import com.simple.vm.CoffeeVO;
+import com.simple.vm.SalesCoffeeVO;
 import com.simple.vm.SalesVO;
 
 @Controller
@@ -42,6 +43,18 @@ public class CoffeeController {
 		
 		System.out.println("coffee :"+ coffee);
 		coffeeService.saveSales(vo, coffee);		
+	}
+	
+	@RequestMapping("/loadSalesCoffee.vm")
+	@ResponseBody
+	public List<SalesCoffeeVO> loadSalesCoffee() {
+
+		List<SalesCoffeeVO> salesList = new ArrayList<>();
+
+		System.out.println("loadSalesCoffee 호출");
+		salesList = coffeeService.loadSalesCoffee();
+
+		return salesList;		
 	}
 
 }

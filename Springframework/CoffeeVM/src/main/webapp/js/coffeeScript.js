@@ -52,16 +52,24 @@ function coffee(coffee_) {
 	//  호출전 준비 작업	
 	if (coffee_ === "밀크커피") {
 		valance -= 300;
+		img = 'milkOut.png';
 	} else if (coffee_ === "프림커피") {
 		valance -= 300;
+		img = 'creamOut.png';
 	} else if (coffee_ === "설탕커피") {
 		valance -= 200;
+		img = 'sugarOut.png';
 	} else if (coffee_ === "블랙커피") {
 		valance -= 200;
+		img = 'blackOut.png';
 	}
 
 	$("#valance").val(valance);
 	checkButtons(valance);
+	
+	// 판매된 커피 출력
+	// images/milkOut.png
+	$("#coffeeImg").attr("src", 'images/'+img); 	
 
 	coffeeValue = coffee_;
 
@@ -75,13 +83,7 @@ function coffee(coffee_) {
 		},
 		success: function(data, textStatus) {
 			console.log(data);
-			const coffeeData = JSON.parse(data);
-
-			const imgurl = 'images/' + coffeeData.coffee;
-			$("#coffeeImg").attr("src", imgurl);
-
-			const valance = coffeeData.valance;
-			$("#valance").val(valance);
+			//const coffeeData = JSON.parse(data);
 		},
 		error: function(data, textStatus) {
 			console.log("에러가 발생")
@@ -161,9 +163,15 @@ function listProduct(products) {
 		'color': '#f00'
 	});
 
+	// 버튼 이벤트 등록
 	$(".product_button").each(function(index, item) {
 		item.addEventListener('click', function(event) {
 			coffee($(this).val());
 		});
 	});
+}
+
+function showChart(){
+
+
 }

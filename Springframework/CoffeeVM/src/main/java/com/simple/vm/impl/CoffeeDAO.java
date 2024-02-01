@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.simple.vm.CoffeeVO;
+import com.simple.vm.SalesCoffeeVO;
 import com.simple.vm.SalesVO;
 import com.simple.vm.common.JDBCUtil;
 
@@ -21,6 +22,12 @@ public class CoffeeDAO {
 	ResultSet rs = null;
 
 	String SELECT_PRODUCT = "SELECT * FROM product;";
+	String SELECT_SALESCOFFEE = "SELECT (SELECT pName from product p\r\n" + 
+			"				WHERE p.pID = s.pID) AS \"coffeeType\"\r\n" + 
+			"        , sum(amount) AS \"salesAmount\" \r\n" + 
+			" FROM salescoffee s\r\n" + 
+			" GROUP BY s.pID\r\n" + 
+			" ORDER BY s.pID;";
 	String INSERT_COFFEE = "insert into salescoffee (pID,amount,salesPrice) values(?,?,?)";
 
 	public CoffeeDAO() {
@@ -91,6 +98,38 @@ public class CoffeeDAO {
 		}
 		
 		return n;
+	}
+	
+	public List<SalesCoffeeVO> loadSalesCoffee() {
+		System.out.println("--> loadSalesCoffee");
+
+		List<SalesCoffeeVO> list = new ArrayList<>();
+
+		try {
+			conn = JDBCUtil.getConnection();
+			pstmt = conn.prepareStatement(SELECT_SALESCOFFEE);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				String coffeeType = rs.getString("coffeeType");
+				int salesAmount = rs.getInt("salesAmount");
+
+				SalesCoffeeVO salesCoffee = new SalesCoffeeVO(coffeeType, salesAmount);
+				System.out.println(" : "+salesCoffee);
+				list.add(salesCoffee);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				JDBCUtil.close(rs, pstmt, conn);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		return list;
 	}
 
 }
